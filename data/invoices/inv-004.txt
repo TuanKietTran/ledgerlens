@@ -1,0 +1,8 @@
+Vendor: Maple Route Logistics
+Invoice #: MRL-4408
+Invoice Date: 2025.04.09
+Currency: CAD
+Description | Qty | Unit Price | Amount
+Pallet delivery | 3 | 140.00 | 420.00
+Fuel surcharge | 1 | 38.40 | 38.40
+Total: C$458.40

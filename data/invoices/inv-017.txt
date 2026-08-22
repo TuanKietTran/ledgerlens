@@ -1,0 +1,8 @@
+Vendor name = Bluebird Translation Ltd
+Document ID = BT-19017
+Document date = 2025-02-24
+Settlement currency = GBP
+LINES
+1500 x 0.18 = 270.00 :: Technical translation words
+2 x 65.00 = 130.00 :: Proofreading hours
+PAYABLE = £400.00

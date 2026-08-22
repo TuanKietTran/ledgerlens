@@ -1,0 +1,8 @@
+From: Nimbus Security Inc.
+Invoice Number: NSI-44109
+Issue Date: Feb 16 2025
+Amounts shown in USD
+Item; Quantity; Unit cost; Line total
+Penetration test; 1; 2400.00; 2400.00
+Report briefing; 2; 175.00; 350.00
+Grand Total: $2,750.00

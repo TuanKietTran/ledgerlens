@@ -1,0 +1,8 @@
+Vendor name = Southern Cross Training
+Document ID = SCT-9906
+Document date = 2025-05-27
+Settlement currency = AUD
+LINES
+desc=First aid course; qty=8; unit=145.00; amount=1160.00
+desc=Course materials; qty=8; unit=22.50; amount=180.00
+PAYABLE = A$1,340.00

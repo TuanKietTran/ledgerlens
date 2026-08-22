@@ -1,0 +1,8 @@
+Vendor: Harbor Office Supply
+Invoice #: HOS-8831
+Invoice Date: 03/02/2025
+Currency: USD
+Description | Qty | Unit Price | Amount
+Printer paper | 10 | 6.50 | 65.00
+Toner cartridge | 2 | 89.25 | 178.50
+Total: $243.50

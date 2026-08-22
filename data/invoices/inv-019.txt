@@ -1,0 +1,8 @@
+Vendor name = Granite Safety Co.
+Document ID = GS-72281
+Document date = 2025-04-17
+Settlement currency = CAD
+LINES
+4 x 48.75 = 195.00 :: Safety helmets
+10 x 12.40 = 124.00 :: Reflective vests
+PAYABLE = C$319.00

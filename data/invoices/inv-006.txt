@@ -1,0 +1,9 @@
+INVOICE
+Supplier: Alpine Analytics GmbH
+Invoice No: AA-2025-119
+Issued: 2025-02-11
+All amounts in EUR
+Description | Qty | Unit Price | Amount
+Data dashboard | 1 | 1200.00 | 1200.00
+Training session | 2 | 225.00 | 450.00
+Amount Due: €1,650.00

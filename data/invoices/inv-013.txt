@@ -1,0 +1,8 @@
+Bill From: Pennine Catering Ltd
+Reference: PC-8104
+Billing date: 21/03/2025
+Currency GBP
+Item; Quantity; Unit cost; Line total
+Lunch buffet; 35; 14.50; 507.50
+Coffee service; 35; 3.25; 113.75
+Balance Due: GBP 621.25

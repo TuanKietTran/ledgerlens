@@ -1,0 +1,9 @@
+TAX INVOICE
+From: Red Gum Creative Pty Ltd
+Inv # RGC-294
+Date: 14/03/2025
+Currency AUD
+Description | Qty | Unit Price | Amount
+Illustration set | 3 | 180.00 | 540.00
+Layout design | 6 | 95.00 | 570.00
+Grand Total: A$1,110.00

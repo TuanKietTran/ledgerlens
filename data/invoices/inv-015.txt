@@ -1,0 +1,9 @@
+INVOICE
+Supplier: Fjord Research AS
+Invoice No: FR-3307
+Issued: 2025-05-19
+Currency: EUR
+Item; Quantity; Unit cost; Line total
+Market interviews; 12; 110,00; 1320,00
+Analysis report; 1; 680,00; 680,00
+Amount Due: EUR 2.000,00

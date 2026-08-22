@@ -1,0 +1,8 @@
+Supplier Name: True North Media
+Inv # TNM-2025-88
+Date: 2025/04/12
+All amounts in CAD
+Item; Quantity; Unit cost; Line total
+Campaign management; 1; 950.00; 950.00
+Ad placements; 5; 220.00; 1100.00
+Invoice Total: C$2,050.00

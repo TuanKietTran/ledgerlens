@@ -1,0 +1,8 @@
+Vendor name = Orbit Facilities Group
+Document ID = OFG-6420
+Document date = 2025-01-09
+Settlement currency = USD
+LINES
+desc=HVAC inspection; qty=2; unit=185.00; amount=370.00
+desc=Filter replacement; qty=6; unit=32.00; amount=192.00
+PAYABLE = $562.00

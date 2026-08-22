@@ -1,0 +1,10 @@
+NORTHSTAR CLOUD LLC
+Vendor: Northstar Cloud LLC
+Invoice #: NS-1042
+Invoice Date: 2025-01-15
+Currency: USD
+
+Description | Qty | Unit Price | Amount
+Cloud hosting | 2 | 125.00 | 250.00
+Support plan | 1 | 75.00 | 75.00
+Total: 325.00

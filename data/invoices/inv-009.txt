@@ -1,0 +1,8 @@
+Supplier Name: Cedar Legal Partners
+Invoice Number: CLP-00981
+Issue Date: April 30 2025
+Amounts shown in USD
+Description | Qty | Unit Price | Amount
+Contract review | 7.5 | 240.00 | 1800.00
+Filing fee | 1 | 125.00 | 125.00
+Invoice Total: USD 1,925.00

@@ -1,0 +1,8 @@
+Vendor: Brighton Design Studio
+Invoice #: BDS/2025/031
+Invoice Date: 18 Mar 2025
+Currency: GBP
+Description | Qty | Unit Price | Amount
+Brand workshop | 1 | 600.00 | 600.00
+Logo revisions | 4 | 85.00 | 340.00
+Total: £940.00

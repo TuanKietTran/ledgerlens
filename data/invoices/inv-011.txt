@@ -1,0 +1,9 @@
+FACTURE / INVOICE
+Supplier: Atelier Papier SARL
+Invoice No: AP-7715
+Issued: 2025-01-28
+Currency: EUR
+Item; Quantity; Unit cost; Line total
+Recycled notebooks; 20; 4,25; 85,00
+Desk planners; 5; 12,00; 60,00
+Amount Due: 145,00 EUR

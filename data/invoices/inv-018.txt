@@ -1,0 +1,8 @@
+Vendor name = Pixel Peak Hosting
+Document ID = PPH-5002
+Document date = 2025-03-31
+Settlement currency = EUR
+LINES
+desc=Managed server; qty=3; unit=160,00; amount=480,00
+desc=Backup storage; qty=2; unit=45,00; amount=90,00
+PAYABLE = €570,00

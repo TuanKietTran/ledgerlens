@@ -1,0 +1,8 @@
+Bill From: Sakura Components Co.
+Reference: SC-55802
+Billing date: 2025/04/22
+Currency: JPY
+Description | Qty | Unit Price | Amount
+Sensor module | 8 | 4200 | 33600
+Cable assembly | 12 | 850 | 10200
+Balance Due: ¥43,800
