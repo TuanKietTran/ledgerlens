@@ -1,70 +1,129 @@
 # ledgerlens
 
-Invoice extraction with a human-in-the-loop review queue — and, more to the
-point, the measurement that says whether it actually works.
+A reproducible evaluation harness for structured invoice extraction. It ships a
+20-document synthetic labeled set, two prompt variants, field-level scoring, and
+a self-contained reference extractor (the **system under test**).
 
-**Status:** planned. Starts once [ledgerline](https://github.com/TuanKietTran/ledgerline) ships.
+> **Status:** local demo; no public endpoint yet.
 
-## Scope of this repo
+## What is evaluated
 
-The feature itself — upload, extraction, review UI — is built inside
-[ledgerline](https://github.com/TuanKietTran/ledgerline), because an LLM feature
-that lives outside the product it serves proves nothing about integrating one.
+Given plain invoice text, the extractor returns:
 
-**This repo holds the evaluation harness:** the labeled invoice set, the prompt
-and schema versions, the scoring scripts, and the results. Kept separate because
-the eval is the honest artifact, and it should be reproducible without standing
-up the whole ERP.
+- vendor, invoice number, date, and ISO 4217 currency;
+- ordered line items with description, quantity, unit price, and amount; and
+- total amount.
 
-## The problem
+The benchmark varies field labels, line-item layouts, date formats, currency
+symbols, and US/European number separators. These are synthetic fixtures built
+to test normalization and prompt instructions, not evidence of production OCR
+or broad real-world generalization.
 
-Most invoice-extraction demos show one PDF parsing correctly. That says nothing
-about the cases that matter: multi-page invoices, VAT edge cases, layouts the
-model has not seen, and totals that do not reconcile.
+## System under test
 
-The interesting engineering question isn't extraction — it's what the system
-does when it is **not confident**.
+[`extractor/`](extractor/) exposes one reference implementation with three modes:
 
-## Approach
+- **`heuristic` (default):** deterministic and offline. `zero_shot` uses a narrow
+  conventional-layout parser; `schema_guided` adds the same layout and locale
+  guidance as the richer prompt. This makes every committed result reproducible.
+- **`llm`:** sends the selected file from [`prompts/`](prompts/) to an
+  OpenAI-compatible Chat Completions endpoint with JSON output enabled.
+- **`auto`:** tries the LLM and falls back to the corresponding heuristic parser
+  if credentials or the provider are unavailable.
 
+For live mode, set `OPENAI_API_KEY`. `OPENAI_MODEL` defaults to `gpt-4o-mini`, and
+`OPENAI_BASE_URL` defaults to `https://api.openai.com/v1`.
+
+```bash
+OPENAI_API_KEY=... uv run eval --mode llm
+# Or exercise fallback behavior:
+uv run eval --mode auto
 ```
-Upload ──> text extraction (pdfplumber, Tesseract fallback)
-            │
-    LLM call (schema-constrained JSON) ──> validation (schema + arithmetic)
-            │
-   confidence ≥ threshold ──> auto-post draft invoice
-   confidence <  threshold ──> review queue ──> human correction ──> few-shot store
+
+Live results vary by model and provider and overwrite `results/latest.json`.
+No invoice data is sent anywhere in the default heuristic mode.
+
+## Labeled set format
+
+[`data/invoices/`](data/invoices/) contains 20 raw UTF-8 text documents.
+[`data/labels/invoices.json`](data/labels/invoices.json) is a JSON array of:
+
+```json
+{
+  "id": "inv-001",
+  "document": "invoices/inv-001.txt",
+  "expected": {
+    "vendor": "Northstar Cloud LLC",
+    "invoice_number": "NS-1042",
+    "date": "2025-01-15",
+    "currency": "USD",
+    "line_items": [
+      {"description": "Cloud hosting", "quantity": 2, "unit_price": 125, "amount": 250}
+    ],
+    "total_amount": 250
+  }
+}
 ```
 
-Confidence is not the model's self-report alone. It combines schema validity,
-whether line items actually sum to the stated total, a self-rated score, and
-whether the vendor has been seen before.
+See [`data/README.md`](data/README.md) for the complete schema. All entities and
+transactions are fictional.
 
-**The arithmetic guard is the load-bearing part:** if line items don't sum to
-the total, the result goes to review regardless of how confident the model
-sounds.
+## Run it
 
-## What gets measured
+Python 3.12 and [uv](https://docs.astral.sh/uv/) are required.
 
-| Metric | Why it's here |
-|---|---|
-| Field-level accuracy | Per-field, not per-document — a document-level score hides which field fails |
-| Category accuracy | Expense account assignment, the part a human would otherwise do |
-| % auto-posted | The actual efficiency claim |
-| Human-touch time saved | The only number a finance team cares about |
+```bash
+uv sync --extra dev
+uv run eval
+uv run pytest
+```
 
-Plus a **before/after comparison** once the correction store holds ~30 examples,
-to show whether corrections actually improve later runs or just accumulate.
+`uv run eval` compares both prompt variants in offline mode, prints a per-field
+table, and writes the machine-readable report to
+[`results/latest.json`](results/latest.json). Useful options include:
 
-## Honesty commitments
+```bash
+uv run eval --tolerance 0.01 --details
+uv run eval --variants schema_guided --output results/schema-only.json
+uv run eval --help
+```
 
-- A failure gallery ships with the results — the cases it gets wrong, and why.
-- Synthetic invoices are labeled as synthetic, with layouts varied hard.
-- Cost and latency per document are reported, not omitted.
+## Scoring
 
-## The design constraint
+Text exact match is case-insensitive and collapses whitespace. Dates and
+currencies are expected in canonical form. Line-item order and item count must
+match. Money is reported both as exact match and with an inclusive absolute
+`±0.01` tolerance.
 
-The ERP core treats posted invoices as immutable and enforces hard invariants.
-A nondeterministic component has to live inside that without weakening it — so
-extraction produces **drafts**, never posted entries, and a human confirms
-anything the guards flag.
+The overall score is the unweighted mean of nine non-duplicated measures:
+vendor, invoice number, date, currency, line descriptions, and quantities use
+exact match; line unit prices, line amounts, and total use tolerance match. The
+additional exact-money and whole-line-array rows are diagnostics and are not
+counted twice.
+
+## Reproducible baseline results
+
+These numbers come from `uv run eval` in deterministic heuristic mode on all 20
+fixtures:
+
+| Prompt variant | Documents | Overall accuracy |
+|---|---:|---:|
+| `zero_shot` | 20 | **37.78%** |
+| `schema_guided` | 20 | **100.00%** |
+
+| Core field / rule | `zero_shot` | `schema_guided` |
+|---|---:|---:|
+| Vendor (exact) | 25.00% | 100.00% |
+| Invoice number (exact) | 25.00% | 100.00% |
+| Date (exact) | 25.00% | 100.00% |
+| Currency (exact) | 40.00% | 100.00% |
+| Line descriptions (exact) | 50.00% | 100.00% |
+| Line quantities (exact) | 50.00% | 100.00% |
+| Line unit prices (±0.01) | 50.00% | 100.00% |
+| Line amounts (±0.01) | 50.00% | 100.00% |
+| Total amount (±0.01) | 25.00% | 100.00% |
+
+The gap is intentional: the zero-shot fallback represents a narrow baseline,
+while the schema-guided variant encodes the layout and locale cases represented
+in this labeled set. The committed JSON includes all diagnostic metrics so a
+future prompt or model can be compared under the same scoring contract.

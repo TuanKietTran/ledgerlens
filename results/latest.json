@@ -1,0 +1,49 @@
+{
+  "dataset": "data/labels/invoices.json",
+  "money_tolerance": 0.01,
+  "mode": "heuristic",
+  "results": [
+    {
+      "variant": "zero_shot",
+      "mode": "heuristic",
+      "documents": 20,
+      "overall_accuracy": 37.77777777777778,
+      "metrics": {
+        "vendor_exact": 25.0,
+        "invoice_number_exact": 25.0,
+        "date_exact": 25.0,
+        "currency_exact": 40.0,
+        "line_items_exact": 50.0,
+        "line_item_descriptions_exact": 50.0,
+        "line_item_quantities_exact": 50.0,
+        "line_item_unit_prices_exact": 50.0,
+        "line_item_unit_prices_tolerance": 50.0,
+        "line_item_amounts_exact": 50.0,
+        "line_item_amounts_tolerance": 50.0,
+        "total_amount_exact": 25.0,
+        "total_amount_tolerance": 25.0
+      }
+    },
+    {
+      "variant": "schema_guided",
+      "mode": "heuristic",
+      "documents": 20,
+      "overall_accuracy": 100.0,
+      "metrics": {
+        "vendor_exact": 100.0,
+        "invoice_number_exact": 100.0,
+        "date_exact": 100.0,
+        "currency_exact": 100.0,
+        "line_items_exact": 100.0,
+        "line_item_descriptions_exact": 100.0,
+        "line_item_quantities_exact": 100.0,
+        "line_item_unit_prices_exact": 100.0,
+        "line_item_unit_prices_tolerance": 100.0,
+        "line_item_amounts_exact": 100.0,
+        "line_item_amounts_tolerance": 100.0,
+        "total_amount_exact": 100.0,
+        "total_amount_tolerance": 100.0
+      }
+    }
+  ]
+}

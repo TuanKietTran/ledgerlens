@@ -49,9 +49,9 @@ def extract_with_llm(text: str, variant: str) -> dict[str, Any]:
 
 
 def _validate(result: Any) -> dict[str, Any]:
-    required = {"vendor", "invoice_number", "date", "currency", "line_items", "total_amount"}
-    if not isinstance(result, dict) or not required.issubset(result):
+    fields = ("vendor", "invoice_number", "date", "currency", "line_items", "total_amount")
+    if not isinstance(result, dict) or not set(fields).issubset(result):
         raise LLMError("LLM response does not match the invoice schema")
     if not isinstance(result["line_items"], list):
         raise LLMError("line_items must be an array")
-    return {key: result[key] for key in required}
+    return {key: result[key] for key in fields}
