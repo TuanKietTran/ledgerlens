@@ -5,7 +5,7 @@ description = "Reproducible evaluation harness for invoice extraction"
 readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
-  "fastapi>=0.115,<1",
+  "fastapi>=0.115,<0.116",
   "uvicorn>=0.30,<1",
 ]
 
