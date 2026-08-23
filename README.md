@@ -4,7 +4,19 @@ A reproducible evaluation harness for structured invoice extraction. It ships a
 20-document synthetic labeled set, two prompt variants, field-level scoring, and
 a self-contained reference extractor (the **system under test**).
 
-> **Status:** local demo; no public endpoint yet.
+> **Status:** local demo with a web UI; no public endpoint yet.
+
+## Web UI
+
+Browse all 20 labeled invoices, inspect ground truth against both prompt variants,
+and view the latest overall accuracy comparison in a local web UI.
+
+```bash
+uv run ledgerlens-web
+```
+
+Then open [http://localhost:8802](http://localhost:8802). The UI is available
+locally only; there is still no public endpoint.
 
 ## What is evaluated
 
