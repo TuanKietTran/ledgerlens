@@ -188,7 +188,8 @@ def invoice_detail(invoice_id: str) -> HTMLResponse:
             css_class = "correct" if correct else "incorrect"
             status = "Correct" if correct else "Incorrect"
             cells.append(
-                f"<td class='result {css_class}'>{_display(_field_value(predictions[variant], key))}"
+                f"<td data-variant='{escape(variant)}' class='result {css_class}'>"
+                f"{_display(_field_value(predictions[variant], key))}"
                 f"<br><span class='badge'>{status}</span></td>"
             )
         table_rows.append(f"<tr>{''.join(cells)}</tr>")

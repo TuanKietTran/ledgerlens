@@ -18,8 +18,10 @@ def test_invoice_detail_shows_both_scored_prompt_results() -> None:
     response = client.get("/invoice/inv-006")
 
     assert response.status_code == 200
-    assert "zero_shot" in response.text
-    assert "schema_guided" in response.text
-    assert "Incorrect" in response.text
-    assert "Correct" in response.text
+    assert "<th><code>zero_shot</code></th>" in response.text
+    assert "<th><code>schema_guided</code></th>" in response.text
+    assert "data-variant='zero_shot' class='result incorrect'" in response.text
+    assert "data-variant='schema_guided' class='result correct'" in response.text
+    assert "<span class='badge'>Correct</span>" in response.text
+    assert "<span class='badge'>Incorrect</span>" in response.text
     assert "Alpine Analytics GmbH" in response.text
